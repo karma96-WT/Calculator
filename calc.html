@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Calculator</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+      .calculator {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .display-container {
+        width: 100%;
+        text-align: right;
+        margin-bottom: 10px;
+      }
+      .previous-display,
+      .current-display {
+        width: 100%;
+        font-size: 1.2em;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+      }
+      .current-display {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-top: 5px;
+      }
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      button {
+        padding: 15px;
+        font-size: 1.2em;
+        border: none;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      button:hover {
+        background-color: #ddd;
+      }
+      .equal {
+        background-color: #28a745;
+        color: white;
+      }
+      .clear {
+        background-color: #dc3545;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="display-container">
+        <div id="previous-display" class="previous-display"></div>
+        <div id="current-display" class="current-display"></div>
+      </div>
+      <div class="buttons">
+        <button onclick="clearDisplay()" class="clear">C</button>
+        <button onclick="appendValue('/')">/</button>
+        <button onclick="appendValue('*')">*</button>
+        <button onclick="appendValue('-')">-</button>
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button onclick="appendValue('+')">+</button>
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button onclick="calculateResult()" class="equal">=</button>
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button onclick="appendValue('0')">0</button>
+        <button onclick="appendValue('.')">.</button>
+      </div>
+    </div>
+    <script>
+      let currentInput = "";
+      let previousInput = "";
+      let output = "";
+
+      function updateDisplay() {
+        document.getElementById("previous-display").innerText = previousInput;
+        document.getElementById("current-display").innerText = currentInput;
+      }
+
+      function appendValue(value) {
+        currentInput += value;
+        updateDisplay();
+      }
+      function clearDisplay() {
+        currentInput = "";
+        previousInput = "";
+        output = "";
+        updateDisplay();
+      }
+      function calculateResult() {
+        try {
+          previousInput = currentInput;
+          output = eval(currentInput);
+          currentInput = output.toString();
+          updateDisplay();
+        } catch {
+          currentInput = "Error";
+          updateDisplay();
+          currentInput = "";
+        }
+      }
+    </script>
+  </body>
+</html>
